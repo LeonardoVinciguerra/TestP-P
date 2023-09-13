@@ -1,0 +1,282 @@
+//----------------------------------//
+//    Configurazione PC QDVC evo    //
+//----------------------------------//
+
+
+Installazione linux (Ubuntu 16.04 LTS)
+------------------------------------------------------------------
+-Premere F12 per selezione BOOT all'avvio e scegliere USB (non UEFI).
+
+-Far partire UBUNTU come prova (Try Ubuntu).
+
+-Premere pulsante ricerca (in alto a sinistra) e digitare disks.
+
+-Tramite DISKS fare partizione principale da 42GB (create con type ext4). Relaunch se errore e riaprire Disks per verificare.
+-Nel caso sia un disco già partizionato aiutarsi con Gparted (per togliere swap occorre dare swap-off).
+
+-Premere pulsante Install Ubuntu. Continue su English e schermata successiva (install third-party deselezionato).
+
+-Selezionare Something else (Altro) e premere continue.
+-Selezionare "free space" e premere "+". Size 2028 MB, Use as Swap area e dare OK.
+-Evidenziare /dev/sda1 e premere Change. 
+-Selezionare "use as ext4...", Spunta Format partition, mount dare carattere "/" (significa root). Premere Create.
+-Selezionare "Device for boot loader installazion" come /dev/sda e Premere install now e poi Continue.
+-Continue su fuso orario.
+-English su keyboard layout.
+-Your Computer's name: "QdvcEvo", Pick user name "service", password "service", seleziona "Log in automatically". Premere Continue.
+-Aprire l'applicazione "disks" e creare una partizione grande 75GB in dev/sda3
+
+//--------------------
+-Selezionare la partizione appena creata, cliccare sull'ingranaggio e selezionare le mount options, copiare i dati presenti nell'immagine
+"mount_options.jpg". NO LASCIARLA NON MONTATA.
+
+NO -Riavviare il pc
+//-----------------------
+
+DISABILITARE GLI UPDATES da gestore aggiornamenti- System setting, Softyware & Updates, Updates, Automatically check for updates: set to NEVER.
+
+- Verificare che il cavo di rete sia connesso
+
+Installare Synaptic package manager
+-----------------------------------
+- Tramite Ubuntu software (cerca synaptic)
+- Oppure da terminale:
+sudo apt-get update
+sudo apt-get install synaptic
+
+Installazione librerie e tools principali di sviluppo
+------------------------------------------------------------------
+System --> Administration --> Synaptic package manager
+- Aprire Synaptic Package Manager (dal Launcher o ricerca da pulsante in alto a sinistra), premere close dopo prima finestra.
+- Click su Reload
+
+Impostare come da installare
+- aiutarsi con search e iniziali lib da installare.
+- selezionare "mark for installation" e premere MARK.
+
+	gnome-system-tools
+	setserial
+	cifs-utils
+	nfs-common
+	v4l-conf
+	xawtv
+	libtool
+	libsdl1.2-dev
+	libsdl-image1.2-dev
+	libsdl-gfx1.2-dev
+	libsdl-sge-dev
+	libsdl-pango-dev
+	libsdl-ttf2.0-dev
+	libsdl-stretch-dev
+	libopencv-dev
+	libboost-all-dev
+	linux-crashdump
+	uvcdynctrl
+
+- Click su Apply
+- Se viene chiesta una configurazione delle librerie installate lasciare i parametri di default e proseguire (premere foward).
+- Chiudere Package Manager
+
+Configurazione porta seriale
+------------------------------------------------------------------
+- Cercare terminal a fare lock su Launcher.
+- Modificare (come super user) il file rc.local scrivendo a terminale:
+
+
+	sudo gedit /etc/rc.local 
+
+aggiungendo:
+
+	setserial /dev/ttyS4 baud_base 460800
+	setserial /dev/ttyS5 baud_base 460800
+	setserial /dev/ttyS6 baud_base 460800
+	setserial /dev/ttyS7 baud_base 460800
+	setserial /dev/ttyS4 low_latency
+	setserial /dev/ttyS5 low_latency
+	setserial /dev/ttyS6 low_latency
+	setserial /dev/ttyS7 low_latency
+
+- Salvare (eventuali warning nel terminale sono normali)
+
+- Riavviare il pc
+
+- Da terminale:
+	dmesg | grep ttyS
+
+   e verificare che ttyS4,ttyS5,ttyS6, ttyS7 corrisponda alla uart pci (deve essere mostrato "is a 16C950/954")
+
+- Da terminale:
+
+	sudo setserial /dev/ttyS4 -G
+	sudo setserial /dev/ttyS5 -G
+	sudo setserial /dev/ttyS6 -G
+	sudo setserial /dev/ttyS7 -G
+
+  e verificare che baud_base sia 460800 e presenza flag low_latency in tutti e 4 i casi
+
+Aggiunta utente quadradvc
+------------------------------------------------------------------
+- Creare utente quadradvc (System->Administration->Users and Groups)
+        password: quadradvc
+	Dare i diritti: Desktop user (Account Type: Custom, change into "Desktop user"
+
+- Aprire gruppo quadradvc e associare gli utenti (service e quadradvc): 
+  Manage Group, scegliere "quadradvc", premere properties, selezionare Group Members: quadradvc e service.
+- Aprire gruppo video e associare gli utenti (service e quadradvc)
+  Manage Group, scegliere "video", premere properties, selezionare Group Members: quadradvc e service.
+- Aprire gruppo dialout e associare gli utenti (service e quadradvc)
+  Manage Group, scegliere "dialout", premere properties, selezionare Group Members: quadradvc e service.
+
+
+
+Creazione cartelle di mount
+------------------------------------------------------------------
+- Da terminale
+	sudo mkdir /mnt/qserver
+	sudo mkdir /mnt/qdata
+
+
+
+Mount partizione dati e qserver
+------------------------------------------------------------------
+- Da terminale
+	sudo gedit /etc/fstab
+
+aggiungere in fondo al file le seguenti righe:
+
+	# mount qdvc data partition
+	/dev/sda3       /mnt/qdata      ext4   rw,user,auto,exec     0          0
+
+	# mount qserver
+	#//qserver/qnet /mnt/qserver	cifs	user=,password=,uid=quadradvc,gid=quadradvc,auto,rw,noexec 0 0
+
+RIAVVIARE !!!
+
+
+
+Permessi cartelle di mount
+------------------------------------------------------------------
+- Da terminale
+	sudo chmod 777 /mnt/qserver
+	sudo chmod 777 /mnt/qdata
+	sudo chown quadradvc:quadradvc /mnt/qserver
+	sudo chown quadradvc:quadradvc /mnt/qdata
+
+
+
+Compilazione e installazione librerie
+------------------------------------------------------------------
+NOTA: installare tutte le librerie nella cartella "libs" seguendo i seguenti programmi
+
+- Copiare le librerie ad esempio nel desktop
+- selezionare la visualizzazione dei file nella cartella.
+- Mouse tasto destro e selezionare open in terminal.
+
+Libreria mss
+------------
+Da terminale (nella cartella mss121):
+	make
+	sudo make install
+	sudo ldconfig
+
+Libreria PixFC-SSE (PixFC-SSE-0.1.1-1_linux-x86.tar.gz)
+------------------
+Da terminale (nella cartella PixFC-SSE-0.1.1):
+	sudo cp libpixfc-sse.a /usr/lib/
+	sudo cp include/pixfc-sse.h /usr/local/include/
+	sudo ldconfig
+
+Libreria libserial
+------------------
+Da terminale (nella cartella libserial-0.5.2-NEW2):
+	./configure
+	make
+	sudo make install
+	sudo ldconfig
+
+
+Installazione ambiente di sviluppo (OPZIONALE)
+------------------------------------------------------------------
+System --> Administration --> Synaptic package manager
+Impostare come da installare
+
+	openjdk-8-jdk
+
+Click su Apply
+
+Per usare Eclipse estrarre file "eclipse-cpp-helios-SR2-linux-gtk.tar.gz" e creare collegamento all'eseguibile "eclipse"
+
+
+Configuring ECLIPSE (OPZIONALE)
+---------------------------------------------
+- disable autobuild
+	Project
+		uncheck "Build Automatically"
+
+- disable build before launching
+	Window/Preferences
+	Run-Debug/Launching
+		uncheck "Build (if required) before launching"
+
+
+
+Se si lavora su eclipse, in run configuration e debug configuration, nella sezione Argument cambiare la working directory dal workspace a qvcdata.
+
+
+Aggiunta diritti spegnimento pc
+------------------------------------------------------------------
+- Da terminale:
+	sudo chmod u+s /sbin/shutdown
+
+
+Installare TeamViewer 15
+------------------------------------------------------------------
+Scaricare il pacchetto di installazione direttamente dal sito ufficiale
+scegliere Debian (DEB package) a x86-32 bit.
+
+
+Aggiunta SCRIPTS
+------------------------------------------------------------------
+DA UTENTE quadradvc!!!!! (selezionare quadradvc da pulsante spegnimento in alto a destra e dare psw:quadradvc)
+- Copiare i files contenuti nella cartella "scripts_home 18.04" nella cartella Home dell'utente quadradvc
+- Copiare i files contenuti nella cartella "scripts_desktop 18.04" nel desktop dell'utente quadradvc
+- Per le install pen, usare i files contenuti nella cartella "scripts_install 18.04" 
+
+- Selezionare i files uno alla volta e abilitare la proprieta' di eseguibilita' (properties, permission, Execute: Allowexecuting....
+
+
+Configurazione Ubuntu per login automatico
+------------------------------------------------------------------
+Dal pulsante di spegnimento in alto a destra, selezionare System settings, User Accounts, selzionando utente in corso (cioè quadradvc).
+Abilitare le modifiche selezionando il pulsante Unlock in alto a destra.
+Selezionare l'utente quadradvc e mettere Automatic Login a ON
+
+
+Installazione software della pick and place
+------------------------------------------------------------------
+inserire una chiavetta contenente i file di installazione o un backup e
+digitare su terminale
+	./qinstall machine=numero di serie della macchina
+esempio
+	./qinstall machine=999
+
+
+Aggiunta bash attivazione sw + partenza automatica all'avvio
+------------------------------------------------------------------
+DA UTENTE quadradvc!!!!!
+Per eseguire il software qdvcevo all'avvio del so:
+	a) Per far eseguire i files sh, da Nautilus aprire - aprire una cartella da Nautilus (explorer ubuntu).
+                se poni mouse riga in alto, appare EDIT.
+		selezionare: Edit-> Preferences -> Behaviour 
+                Spunta su "Ask each time"
+        b) aprire la applicazione “Startup Applications” cercandola dal pulsante di ricerca applicazioni
+                aggiungere il file qdvc.sh alla lista dei programmi
+
+STRUTTURA E NOMENCLATURA
+------------------------------------------------------------------
+/mnt/qdata/                       : directory di mount della partizione dati
+/mnt/qdata/qdvcdata               : directory principale contenente tutti i dati della macchina
+/mnt/qdata/qdvcdata/qdvcevo-exe   : eseguibile
+
+
+

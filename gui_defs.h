@@ -1,0 +1,159 @@
+//---------------------------------------------------------------------------
+// Name:        gui_defs.h
+// Author:      Gabriel Ferri
+//---------------------------------------------------------------------------
+
+#ifndef __GUI_DEFS_H
+#define __GUI_DEFS_H
+
+/*
+	// GREEN
+	#define COL_HIGHLIGHT			157,189,63
+	#define GEN_COL_BG_SELECTED		128,128,128
+	#define GEN_COL_FG_SELECTED		255,255,255
+	#define GEN_COL_BG_EDITABLE		79,158,28
+	#define GEN_COL_FG_EDITABLE		255,255,255
+*/
+
+	// AZURE
+	#define COL_HIGHLIGHT			37,154,244//12,148,253
+	#define GEN_COL_BG_SELECTED		128,128,128
+	#define GEN_COL_FG_SELECTED		255,255,255
+	#define GEN_COL_BG_EDITABLE		12,148,253//6,90,222
+	#define GEN_COL_FG_EDITABLE		255,255,255
+
+/*
+	// VIOLET
+	#define COL_HIGHLIGHT			183,152,236
+	#define GEN_COL_BG_SELECTED		128,128,128
+	#define GEN_COL_FG_SELECTED		255,255,255
+	#define GEN_COL_BG_EDITABLE		189,0,217
+	#define GEN_COL_FG_EDITABLE		255,255,255
+*/
+/*
+	// YELLOW
+	#define COL_HIGHLIGHT			212,167,19
+	#define GEN_COL_BG_SELECTED		128,128,128
+	#define GEN_COL_FG_SELECTED		255,255,255
+	#define GEN_COL_BG_EDITABLE		222,215,4
+	#define GEN_COL_FG_EDITABLE		255,255,255
+*/
+/*
+	// DARK GREEN
+	#define COL_HIGHLIGHT			6,106,93
+	#define GEN_COL_BG_SELECTED		128,128,128
+	#define GEN_COL_FG_SELECTED		255,255,255
+	#define GEN_COL_BG_EDITABLE		28,142,128
+	#define GEN_COL_FG_EDITABLE		255,255,255
+*/
+/*
+	// DARK GREY/BROWN
+	#define COL_HIGHLIGHT			106,105,28
+	#define GEN_COL_BG_SELECTED		128,128,128
+	#define GEN_COL_FG_SELECTED		255,255,255
+	#define GEN_COL_BG_EDITABLE		155,154,86
+	#define GEN_COL_FG_EDITABLE		255,255,255
+*/
+/*
+	// RED
+	#define COL_HIGHLIGHT			200,50,50
+	#define GEN_COL_BG_SELECTED		128,128,128
+	#define GEN_COL_FG_SELECTED		255,255,255
+	#define GEN_COL_BG_EDITABLE		215,100,100
+	#define GEN_COL_FG_EDITABLE		255,255,255
+*/
+
+// window
+#define WIN_COL_BORDER			0,0,0
+#define WIN_COL_CLIENTAREA		206,206,206
+#define WIN_COL_SELECTED		COL_HIGHLIGHT
+#define WIN_COL_DESELECTED		102,102,102
+#define WIN_COL_TXT_SELECTED	0,0,0
+#define WIN_COL_TXT_DESELECTED	128,128,128
+#define WIN_COL_SUBTITLE		170,170,170
+#define WIN_COL_TXT_SUBTITLE	0,0,0
+#define WIN_COL_TXT				0,0,0
+#define WIN_COL_HOTKEY			185,0,0
+//
+#define WIN_BORDER              2
+#define WIN_CAPTION_HEIGHT      GUI_CharH()
+#define WIN_CAPTION_LOW_BORDER  1
+
+// background
+#define BG_COL_DARK			80,80,80
+#define BG_COL_BRIGHT		88,88,88
+#define BG_STRIPES_GAP		5
+#define HEADER_COL_BRIGHT	32,32,32
+#define FOOTER_COL_BRIGHT	HEADER_COL_BRIGHT
+
+// main menu
+#define MM_MENU_WIDTH			200
+#define MM_COL_BG				BG_COL_DARK
+#define MM_COL_BG_ALPHA			72
+#define MM_COL_NORMAL			WIN_COL_CLIENTAREA
+#define MM_COL_HIGHLIGHT		COL_HIGHLIGHT
+#define MM_COL_CIRCLE_IN		190,45,45
+#define MM_COL_CIRCLE_OUT		88,88,88
+#define MM_MENU_POS_X			10
+#define MM_MENU_ENTRY_WIDTH		MM_MENU_WIDTH-20
+#define MM_MENU_HEIGHT			28
+#define MM_MENU_ARROW_DIM		5
+
+// sub menu
+#define SM_COL_BORDER			WIN_COL_BORDER
+#define SM_COL_BACKGROUND		WIN_COL_CLIENTAREA
+#define SM_COL_HIGHLIGHT		MM_COL_HIGHLIGHT
+#define SM_COL_TXT_NORMAL	 	WIN_COL_TXT_SELECTED
+#define SM_COL_TXT_HIGHLIGHT	WIN_COL_TXT_SELECTED
+#define SM_COL_TXT_GRAYED		WIN_COL_TXT_DESELECTED
+#define SM_WIN_BORDER			2
+#define SM_TXT_BORDER			1
+#define SM_MENU_ARROW_DIM		5
+#define SM_HOTKEY_LEN			5
+
+// status bar
+#define SB_COL_BACKGROUND		HEADER_COL_BRIGHT
+#define SB_COL_ITEM_BORDER_1	BG_COL_DARK
+#define SB_COL_ITEM_BORDER_2	SM_COL_BORDER
+#define SB_COL_ITEM_BORDER_3	SM_COL_BACKGROUND
+#define SB_COL_ITEM_BG			SB_COL_BACKGROUND
+#define SB_COL_TXT				255,255,255
+#define SB_HEIGHT				26
+#define SB_BOX_COL				255,0,0
+#define SB_BOX_DIM				12
+
+// combo
+#define CB_COL_EDIT_BORDER		0,0,0
+#define CB_COL_EDIT_BG			255,255,255
+#define CB_EDIT_BORDER			1
+
+// button
+#define BT_COL_NORMAL			128,128,128
+#define BT_COL_FOCUS			COL_HIGHLIGHT
+#define BT_COL_BORDER			0,0,0
+#define BT_COL_TXT				0,0,0
+#define BT_TXT_BORDER			1
+#define BT_TXT_MIN_W			11
+#define BT_HEIGHT				28
+
+// progress bar
+#define PB_COL_BORDER			0,0,0
+#define PB_COL_BG				128,128,128
+#define PB_COL_PROGRESS			COL_HIGHLIGHT
+
+// grid
+#define GRID_COL_BG				255,255,255
+#define GRID_COL_FG				0,0,0
+#define GRID_COL_BG_ERROR		255,102,102
+#define GRID_COL_FG_ERROR		255,255,255
+#define GRID_COL_IN_BORDER		128,128,128
+#define GRID_COL_OUT_BORDER		0,0,0
+// VIOLET/AZURE
+#define GRID_COL_LABEL_BG		132,111,215//150,150,200
+// GREEN
+//#define GRID_COL_LABEL_BG		82,77,76
+// RED
+//#define GRID_COL_LABEL_BG		120,30,30
+#define GRID_COL_LABEL_FG		255,255,255
+
+#endif

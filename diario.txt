@@ -1,0 +1,429 @@
+----------------------------------------------------------------------------------------
+project		00116
+comment		Software controllo Quadra DVC evo
+
+----------------------------------------------------------------------------------------
+24/04/2023
+Versione 4.14b
+- Compatibility with all cameras with HD Webcam/HD WEBCAM in their name. ( ex. c270 HD WEBCAM and c505e HD Webcam) 
+
+16/05/2022
+Versione x.14
+- Correzione di un bug sulla gestione della memoria dei programmi macchina  
+
+31/01/2022
+Versione x.13
+- Introdotta compatibilità con nuove webcam logitech (quelle con PCB blu) montate sulla testa  
+
+07/01/2021 12:30:24 
+Versione x.12
+- Introdotta mappatura deposito telecamera esterna differenziata da mappatura componenti Sniper
+
+07/01/2021 12:30:24 
+Versione x.11a
+- Versione fatta per Main Axis.
+  Aumentato numero max di vassoi in tabella caricatori a 200 (standard = 40).
+  NOTA: i file di config caricatori attuali non sono piu' utilizzabili!
+
+07/01/2021 12:30:24 
+Versione x.11
+- Introdotto supporto monitor full hd
+
+12/06/2020 11:06:07 
+Versione x.10f
+- Risolto bug in funzione di settaggio corrente/tempo motori theta Fox
+- Possibilita' di cambiare da file ini corrente/tempo motori theta in fase di init:
+  4_FOXMAXCURRENT
+  3_FOXMAXTIME
+  Il valore numerico e' l'indice di valore per ciascuno dei due
+
+14:50 11/05/20
+Versione x.10e
+- Introdotte traduzioni in portoghese aggiornate
+
+05/05/2020 16:30:17  
+Versione 4.10c
+- Versione identica alle precedenti x.10c, ma compilata per kernel Ubuntu 16.04.
+  Risolve i problemi di memoria e gestione files presenti in versioni 3.xx (in particolare abilitando i dispenser)
+
+03/12/2019 09:24:38 
+Versione 3.10d
+- Aggiornato file di log creandolo con estensione .txt
+
+03/12/2019 09:24:38 
+Versione 3.10c
+- Aggiornato file di log mettendo separatore ; anche tra data e ora
+- Nel file di log, dopo il nome produzione, scrive anche le note programma. In questo modo ci si puo',
+  ad es., scrivere o sparare col lettore il nome del lotto in corso
+
+03/12/2019 09:24:38 
+Versione 3.10b
+- Risolto problema di corruzione dei file a seguito della chiamata della funzione di check protection.
+
+14:31 01/07/19
+Versione 3.10a
+- Risolto bug in generazione file di log e relativo loop infinito nel sw
+- Risolto bug in generazione file ftf tempi di caricatori di default
+- Sistemata la versione D2 DOME. Ora abilita sempre la camera esterna come D2 CAM e fa fare ricerca origini
+  automatica come versione singolo dispenser
+
+28/05/2019 17:07:38 
+Versione 3.10
+- Se abilitata la modalita' (WORKINGLOG in qsniper.ini) e con rete abilitata, scrive in tempo reale
+  in cartella condivisa un file chiamato IDMACCHINA_job.log contenente la prima riga di stato della
+  macchina, le successive con le operazioni di inizio e fine assemblaggio schede.
+  Implementata per Industry 4.0.
+
+13/06/2018 17:12:48 
+Versione 3.09
+- Versione identica alla 1.09 e alla 2.09, ma compilata per kernel Ubuntu 18.04.
+
+26/06/2018 14:46:56 
+Versione 1.09/2.09
+- Risolve il bug della telecamera testa che diventa "bianca" dove questo e' dovuto al reset della telecamera
+  stessa. Ogni volta che la telecamera testa deve essere visualizzata, vengono ricaricati anche i parametri
+  avanzati (che vengono persi durante i reset)
+- Risolve il bug del blocco completo del sw a seguito della pressione di uno switch finecorca camera X o Y
+- Nella finestra "Feeder Selection" erano invertite le etichette per package e tipo caricatore
+- Se si abilita il convogliatore, al riavvio successivo (e alla sua conseguente attivazione) viene disabilitata
+  la modalita' di prediscesa (per evitare che le punte possano urtare il carter del convogliatore)
+
+13/06/2018 17:09:54 
+Versione 1.07x4
+- Introdotta gestione separata degli scarti tra componenti centrati con Sniper e componenti centrati con Ext Cam
+- Risolve il bug del blocco completo del sw a seguito della pressione di uno switch finecorca camera X o Y
+
+19/04/2017 15:53:02 
+Versione 1.07x3
+- Sistemato problema in gestione database caricatori. Aggiungendo un nuovo caricatore, se ci sono dati 
+  casuali nel file del database puo' risultare in uso da altri e non lo fa aggiungere
+- Risolto un problema nella gestione della soglia del vuoto nel check presenza componenti
+
+27/01/2017 12:18:36 
+Versione 1.07x2
+- Sistemato problema della posizione decentrata nel prelievo componente se assemblaggio con telecamera esterna.
+  E' necessario riapprendere le immagini visioni per utilizzare la nuova versione
+
+13/07/2016 17:14:49   
+Versione 1.07x
+- Introdotta gestione database ugelli. La nuova modalita' e' attivabile da modalita' esecutive.
+  Una volta attivata, dai parametri dei package non e' piu' possibile scegliere direttamente gli ugelli
+  da utilizzare, ma si puo' solo selezionare dal database ugelli il tipo di ugello da usare. La scelta
+  dell'ugello viene fatta dal sw in automatico
+- Introdotto file delle correzioni (in parallelo a master e espanso)
+- Introdotta gestione fasi di assemblaggio. Nelle tab programma c'e' il campo S (step) che indica la fase
+  (da 0 a 9, 0 significa non gestito col sistema delle fasi). Aggiornata la versione dei file di programma
+  a 1.1. La fase viene selezionata dalla finestra dei dati programma (anche il file dati programma e' passato
+  a 1.1). Se la fase e' diversa dalla precedente e diversa da 0, vengono messi a montati si TUTTI i componenti
+  con quella fase (anche se nel file originale erano non montati!) ed a no tutti gli altri. Il programma
+  EvoManager sotto Windows crea gia' i file con le fasi per le varie macchine in base al DB di associazioni
+  componenti-macchina (prende il posto del vecchio QLasManager)
+- Aumentate le versioni possibili dei componenti (non + dalla 0 alla 9, ma anche A..Z)
+- Introdotta modalita' "CHECKCODE" in qsniper.ini. Se settata, non e' + possibile modificare a mano la quantita'
+  componenti, ma si deve accedere ad un apposito menu e scrivere, insieme alla nuova quantita', anche il
+  codice. Se non corrisponde al codice attuale, appare un warning. Lo stesso se si seleziona F5 durante
+  il montaggio x aggiornare la quantita'
+- Se in modalita' "CHECKCODE", nella tabella caricatori introdotto il flag BC che viene settato a si' quando
+  un caricatore e' appreso col lettore codice a barre (sia direttamente da tabella, sia se viene sparato
+  durante l'aggiornamento della quantita', anche durante l'assemblaggio). Tale flag puo' venire resettato
+  a mano o viene resettato in automatico se apprendendo la quantita' non viene sparato il codice e si esce
+  con ESC. Lo stato del flag viene mostrato nelle finestre dedicate all'apprendimento sequenziale dei
+  caricatori (sia posizione che altezza) per rendere noto all'operatore che quel codice non e' stato scritto
+  a mano (e quindi possibile di errori), ma appreso appunto scannerizzando l'etichetta
+- Resa case-insensitive la ricerca nel db magazzini
+- Introdotto nuovo log degli scarti (files discardcomp_log.*) per loggare gli scarti in base al codice
+  caricatore (per permettere lo scarico a magazzino). Introdotta anche la modalita' che, in base al flag
+  ASCIIQID, crea i files dei log degli scarti col suffisso _ID
+- Nel log degli scarti, reso insensibile il campo tipo componente a maiuscole e minuscole
+- In tabella caricatori, campo feeder reso uppercase
+- Aumentato il numero di caricatori in vassoio in tabella caricatori (+80). Aggiornata versione file caricatori
+  e file default caricatori
+- Aumentate le dimensioni della finestra di fine assemblaggio per renderla diversa a colpo d'occhio dalle altre 
+  di errore
+
+11/04/2017 16:31:26 
+Versione 1.08e/2.08e
+- Introdotta lettura encoder X/Y e loro stato in tempo reale nella finestra test hw teste
+- Introdotta indicazione dei retry nel qerror.log (se abilitato log esteso errori con ERRORLOG nell'ini)
+- Premendo CTRL+F6 appare una finestra con le ultime 30 righe del qerror.log
+- Risolto bug in test centraggio Sniper
+- All'avvio aggiunto ricentraggio automatico posizione telecamera esterna anche per punta 2
+
+17/03/2017 12:16:59  
+Versione 1.08d/2.08d
+- Sistemato problema in gestione database caricatori. Aggiungendo un nuovo caricatore, se ci sono dati 
+  casuali nel file del database puo' risultare in uso da altri e non lo fa aggiungere
+  (modifica presa dalla 1.07x3)
+
+- Introdotte modalita' Dosaggio e Dosaggio&Assemblaggio nel menu del convogliatore
+  NOTA: per ora modifica fatta SOLO per macchine normali (no D2 o D2CAM!!!)
+
+03/03/2017 16:21:22 
+Versione 1.08c/2.08c
+- Risolto un problema nella gestione della soglia del vuoto nel check presenza componenti
+- Introdotta nuova modalita' nell'ini NOSHUTTER. Se si scrive, non visualizza l'help con i tasti di regolazione
+  shutter negli apprendimenti con telecamera esterna. Si deve utilizzare con le nuove telecamere a colori
+  usate nel centratore che non hanno la regolazione dello shutter
+
+28/02/2017 15:58:59 
+Versione 1.08b/2.08b
+- Sistemato problema della posizione decentrata nel prelievo componente se assemblaggio con telecamera esterna.
+  E' necessario riapprendere le immagini visioni per utilizzare la nuova versione
+  (modifica presa dalla 1.07x2)
+
+28/02/2017 15:58:59 
+Versione 1.08a/2.08a
+- Risolto bug gestione uscita ausiliaria
+
+16/03/2016 17:10:09 
+Versione 2.08
+- Versione identica alla 1.08, ma compilata per kernel Ubuntu 14.04.
+  Da ora in poi si rilasceranno sempre le due versioni parallele 1.xx e 2.xx per i due diversi Ubuntu (12.04 e 
+  14.04 rispettivamente), dal momento che i nuovi computer vanno solo col 14.04 (si inizia ad usare il 14.04
+  anche nei vecchi computer rilasciati da ora in poi)
+
+09/06/2015 10:55:47  
+Versione 1.08
+- Introdotta gestione convogliatore
+  Introdotto anche gestione aggiornamento firmware nuove schede G31 utilizzate per il convogliatore. Per
+  lanciare l'update, deve essere presente il file del fw chiamato "conveyor.tix" e si deve lanciare l'updater
+  con "./qdvcevo-exe /conveyor"
+- Introdotto supporto per monitor a risoluzione 1600x900 (invece degli standard 1440x900). Per andare e' necessario
+  aggiornare il file xorg.conf (usare xorg_1600.conf) e scrivere RES1600 in qsniper.ini.
+  Insieme all'aggiornamento del sw, bisogna anche mettere la nuoba immagine bg1600.png (che viene caricata
+  dal sw nel caso di desktop a 1600x900)
+- Eliminati tasti INS e DEL in composizione pannello per aggiungere/togliere schede
+- Introdotto messaggio nelle finestre di scan sniper per far capire che premendo F2 si puo' spostare la linea
+  di scansione
+
+16/07/2015 17:28:27 
+Versione 1.07b
+- Introdotta possibilita' di effettuare il check di presenza componente dopo il centraggio per tutti i componenti
+  (non solo led TH), in modo da prevenire problemi nel caso in cui qualche tipo di componente (in particolare led)
+  rimangano incollati all'ugello
+
+03/04/2015 16:30:18 
+Versione 1.07a
+- 5 digit nel campo ripartenza assemblaggio
+- Risolto bug in mappatura offset package
+
+30/07/2014 17:56:53 
+Versione 1.07
+- Durante l'init degli sniper, notifica se c'e' un problema di comunicazione su uno dei 2 prima di chiudere
+  (se fallimento)
+- Nuovi colori per nuovo sfondo
+- In D2, se disp 2 tempo-pressione non era modificabile il tempo di anti-sgocciolio
+- Introdotta scala dei PCB. Se da master si hanno le coord di zero e riferimento e gli si associano due fiduciali
+  (in part il fiduciale 1 deve coincidere con lo zero scheda...), durante la fase di apprendimento master
+  viene eseguito anche il calcolo della scala del PCB
+- Eliminata richiesta del theta nel pannello (azzerava le correzioni del theta master...)
+- Introdotto il calcolo del theta master in automatico se definiti i fiduciali
+- Risolto bug nel check versioni precedenti dei files
+- Migliorati check sugli indici dei packages associati alla tabella caricatori
+- Risolto bug per cui se si apprendevano in simultanea i punti iniziali di dispensazione e si modificava
+  l'altezza del PCB in dati programma, la nuova altezza PCB non veniva memorizzata
+- Introdotta la possibilita' di dispensare anche componenti non montati. Se tutto il pannello risulta non
+  montato, anche la dispensazione viene saltata
+- Migliorata la funzione di apprendimento incrementi nei vassoi. Quando si deve apprendere il componente in
+  alto a dx la testa non torna piu' nel componente in basso a sx
+- Risolto bug per cui la finestra dati caricatori non veniva aggiornata a seguito dell'apprendimento incrementi
+  in vassoio a meno che non si spostasse il cursore
+- Selezionando la funzione di apprendimento fiduciali senza aver prima creato la scheda master appare un mess
+  di notifica e viene direttamente aperta la finestra di creazione master/multi-pannello
+- Creando un nuovo programma, se si prova ad entrare nel menu di programmazione senza aver selezionato configurazione
+  caricatori e libreria package appare un mess di notifica (prima non diceva nulla e non faceva entrare nella
+  finestra di programmazione)
+- Sistemate schermate test hw schede
+- Migliorato check parametri fiduciali
+- Introdotto check dimensioni XY (sia generali che Sniper) in uscita dalla finestra parametri package (X deve essere
+  minore di Y)
+
+21/05/2014 09:58:02 
+Versione 1.06d
+- Sistemato bug in settaggio parametri telecamere
+- Sistemato bug in funzione di test centraggio
+
+03/10/2013 10:10:21  
+Versione 1.06c
+- Aggiornati messaggi per lingue francese, spagnolo e turco
+- Risolto bug nel messaggio in portoghese che faceva crashare il sw entrando in calibrazione centro rotazione
+
+11/07/2013 15:26:47 
+Versione 1.06b
+- Sistemato bug che causava il blocco del software nelle macchine con doppio dispenser se col dispenser volumetrico
+  si settava un tempo di impulso vuoto diverso da zero.
+- Introdotta nuova configurazione Release_2Disp_Cam per poter utilizzare la telecamera di centraggio esterna
+  anche in modalita' con doppio dispenser (fatta appositamente per la macchina speciale francese con blocco
+  porta ugelli e camera in alto). Attualmente quindi nel sw doppio dispenser standard insieme alla versione 
+  appare il suffisso "D2" se avviato normalmente, "D2s" se avviato in modalita' singola punta. Nel caso della
+  versione speciale con telecamera esterna abilitata anche con doppio dispenser attivo, i suffissi sono sempre
+  "D2s" se singolo dispenser, "D2c" se doppio dispenser
+
+21/06/2013 09:55:48  
+Versione 1.06a
+- Sistemato bug luminosita'/contrasto entrando/uscendo da fiduciali, zero macchina o posizione componenti
+- Sistemato bug valori di default fiduciali (bug in creazione nuovo file parametri fiduciali)
+
+20/05/2013 12:09:18 
+Versione 1.06
+- Introdotta modalita' di ricerca fiduciali con metodo vettoriale
+- Nuovi colori per nuovo sfondo
+- Disabilitato MJPEG per problemi vari sulle telecamere
+- Introdotta modalita' "MHONUART" in qsniper.ini. Se attiva, viene utilizzata la quarta porta della UART
+  per pilotare le schede brushless. In questo caso, la porta seriale dei caricatori per led TH diventa la USB0
+  del convertitore e vengono eliminati i ritardi introdotti per i problemi nella seriale HD su USB
+- Risolto bug di blocco sw se abilitato DB magazzini per la prima volta
+- Risolto bug di visualizzazione risultato check di congruenza in lingua francese (non mostrava la riga
+  dell'incongruenza)
+
+01/03/2013 17:04:06 
+Versione 1.05c
+- Il backup falliva se trovava files corrotti. Adesso li salta ed alla fine avvisa. Se ce ne sono,
+  crea un file di log (qbackup.log) in cui sono scritti tutti i files saltati
+- Il backup dei parametri della macchina non salvava i files map* e head*
+- Sistemato bug di rimozione magazzino da tabella caricatori
+- Modificato messaggio in caso di errore moduli brushless x rendere + chiara la notifica
+- CTRL+F11 attivo sempre mostra una finestra con i valori letti in tempo reale degli encoder assi X-Y
+
+25/02/2013 16:43:17  
+Versione 1.05b
+- Modificata finestra dati punti di dispensazione x visualizzare dei grafici di help. Cambiate le etichette
+  Alto, Basso, Destra e Sinistra con Orizzontale e Verticale 1 e 2
+- Introdotta modalita' "ASCIIQID" in qsniper.ini. Se attiva, quando esporta i file ASCIIQ nella cartella condivisa
+  o sulla pennina USB aggiunge al nome file "_IDMACCHINA"
+- Sistemato bug centraggio con telecamera esterna x cui non prendeva la soglia di correlazione settata
+- Introdotto ResetSpeed nell'init della classe Motorhead
+- Eliminato check overspeed durante l'avanzamento ed il ritorno del motore attivando le fasi con la rampa durante
+  la fase di init
+- Sistemato backup dati macchina totale e parziale
+- Introdotto simbolo __NET_TEST che, se definito, non cerca la cartella remota del server, ma una cartella locale
+  chiamata "backuptmp" (x eseguire test su operazioni di rete)
+
+21/01/2013 10:48:21 
+Versione 1.05a
+- Sistemato bug generazione file di velocita' default nelle tabelle velocita'
+- Aggiunta finestra x visualizzare e modificare tabelle di velocita' assi
+- Decrementato ritardo nelle funzioni di lettura seriale (da 500 a 250 usec)
+- Introdotto utilizzo delle snprintf al posto delle sprintf
+- Sistemata gestione multimove e wait
+- Corretto errore quantita' esportazione inventario
+- Sistemata gestione caricatori intelligenti
+- Introdotte funzioni jpegutils, sistemata gestione camere ed aggiornati files v4l2
+- Video in formato MJPEG e crop immagini
+
+25/10/2012
+Versione 1.05
+- Corretto errore nella gestione dei movimenti della classe Motorhead ( funzioni Move() e Wait() ) che poteva far passare come "buono" un movimento che in realta' non era stato eseguito a causa di errori in comunicazione seriale
+- Ridotto ritardo (da 500us a 250us) nelle funzioni di lettura byte dalla porta seriale (CommClass) quando nessun byte e' disponibile
+- Modificata funzione TWSBus1_Send(): ridotti ritardi (da 500us a 100us)
+- Modificati colori della UI
+- Aggiunta funzione per esportare in formato CSV la configurazione dei caricatori
+- Aggiunto parametro "Correzione quota prelievo automatico (mm)" in finestra "Configurazione -> Parametri di lavoro -> Parametri di controllo". Serve per correggere la misurazione automatica (tramite sensore del vuoto) della quota di prelievo componenti su caricatore
+
+
+19/09/2012
+Versione 1.04a
+- Aggiunti indici di performance in classe di comunicazione seriale CommClass
+- Aggiunto ritardo (500us) nelle funzioni di lettura byte dalla porta seriale (CommClass) quando nessun byte e' disponibile
+- Aggiunta funzione Find_InkMark() per riconoscimento "cerchi fatti con inchiostro e ugello cieco"
+- Aggiunta funzione per testare le punte in HWTest (richiamabile con tasti nascosti F7 e F8)
+- Modificata funzione TWSBus1_Send() per evitare la perdita dei bytes ricevuti
+
+
+11/09/2012
+Versione 1.04
+- Aggiunta funzione CommClass::getstring
+- Modificata funzione TWSBus1_Send() per usare CommClass::getstring()
+- Corretti bugs in funzione POff_InkDeltaHeights() (q_conf.cpp)
+- Rivista sequenza di azzeramento angolare punte
+- Aggiunta funzione Sniper_FindPrerotZeroTheta() per ricerca assistita dell'angolo iniziale "zero theta"
+
+
+04/09/2012
+Versione 1.03c
+- Modificata funzione findRotatedRectangle() (bitmap.cpp)
+- Aggiunta funzione "offset varie altezze"
+- Migliorata classe CLogger
+- Corretti alcuni messaggi
+
+
+30/06/2012
+Versione 1.03b
+- Aggiunta funzione findRotatedRectangle() (bitmap.cpp)
+- Corretto errore in visualizzazione barre di stato
+- Motorhead: modificata procedura di init per evitare "sbattimento"
+- Aggiunte funzioni in classe BrushlessModule compatibili con firmware dal 4.15:
+	UpdateOverSpeed()
+	OverSpeedCheck()
+- Aggiunta funzione CheckToolOnNozzle(): controlla se presente almeno un ugello valido per la punta passata
+- Corretto bug in algoritmo di ottimizzazione
+- Continua passaggio finestre a nuova UI
+- Continua operazione di pulizia software
+- Corretti alcuni messaggi
+
+
+12/06/2012
+Versione 1.03
+- Aggiunta funzione DeleteDirectory()
+- In classe MotorheadClass: modificata funzione di Init() e aggiunto errore "Steady Position"
+- Tolta dal file q_init.cpp la gestione dei flag di inizializzazione del sw. Adesso si trovano in file separato: q_inifile.cpp
+- Aggiunta finestra per visualizzare risultati della verifica della mappatura assi XY
+- Aggiunte funzioni in classe BrushlessModule compatibili con firmware dal 4.11:
+	GetSensorTemp()
+	SetSteadyPosition( long pos )
+	GetSteadyPosition()
+	SetEncoderSpikeDelta( unsigned short delta )
+	GetEncoderSpikeDelta()
+- Continua passaggio finestre a nuova UI
+- Continua operazione di pulizia software
+- Corretti alcuni messaggi
+
+
+1/06/2012
+Versione 1.02
+- Rimossa completamente libreria GRX
+- Modificata gestione v4l2
+- Corretto bug in funzione cvMaxLocLim() (bitmap.cpp)
+- Modificata classe CCell (c_cell.cpp):
+	- aggiunta funzione SetStrings_Text()
+	- corretto bug in funzione manageChar()
+- Aggiunte funzioni SelectFirstCell() e DeselectFirstCell() in classe CWindowParams
+- Aggiunte funzioni DrawGroup() e DrawPie() in classe CWindow
+- Aggiunta classe CWaitBox: finestra di attesa con barra di caricamento
+- Aggiunte funzioni in classe BrushlessModule compatibili con firmware dal 4.10:
+	GetVPower()
+- Aggiunte funzioni di UI:
+	GUI_FillRectA()
+	GUI_Trigon()
+	GUI_FillTrigon()
+	GUI_Circle()
+	GUI_FillPie()
+	GUI_SaveScreen()
+	GUI_DrawSurface()
+	GUI_FreeSurface()
+	GUI_LoadImage()
+- corretto bug in caricamento parametri telecamera, funzione CameraControls_Load()
+- In classe MotorheadClass modificata funzione di ricerca origini ZeroSearch()
+- Continua passaggio finestre a nuova UI
+- Continua operazione di pulizia software
+- Corretti alcuni messaggi
+
+
+23/05/2012
+Versione 1.01
+- Aggiunta funzione DrawTextCentered( int x1, int x2, int y, const char* buf ) nella classe CWindow
+- Aggiunta classe FeederSelect per selezionare caricatore da UI
+- Aggiunti messaggi di errore in azzeramento angolo theta Sniper
+- Aggiuto mutex (sniperSerialMutex) per accesso alla porta seriale nella classe di comunicazione con i moduli Sniper (SniperModule) 
+- Riscritta funzione CheckZTheta() (q_prog.cpp)
+- Continua passaggio finestre a nuova UI
+- Continua operazione di pulizia software
+- Corretti alcuni messaggi
+
+
+19/05/2012
+versione 1.00
+
+---------------------------------------------------------------------------------------
+fine diario.txt
+---------------------------------------------------------------------------------------
